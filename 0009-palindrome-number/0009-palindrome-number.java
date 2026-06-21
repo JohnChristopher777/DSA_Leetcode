@@ -2,6 +2,8 @@ class Solution {
     public boolean isPalindrome(int x) {
         int revNum=0;
         int dup=x;
+
+        if(x<0 || x%10==0 && x!=0) return false;
         
         if(x==0) return true;
 
