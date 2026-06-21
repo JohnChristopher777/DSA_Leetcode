@@ -9,13 +9,11 @@ class Solution {
 
         while(x>0){
             int ld=x%10;
-            revNum=(revNum*10)+ld; 
-            x=x/10;               
+            revNum=(revNum*10)+(x%10); 
+            x /=10;               
         }  
-        if (revNum==dup){      
-            return true;
-        }else{
-            return false;         
-        }
+        if (revNum==dup)    return true;
+       
+        return false;         
     }
 }
