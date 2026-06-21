@@ -1,6 +1,6 @@
 # My DSA Journey
 
-Here, In this repo I'll be uploading the solved problems and concepts I'll be learning throughout my DSA journey!
+In this repository, I will be uploading the LeetCode problems I solve throughout my DSA journey.
 
 <!---LeetCode Topics Start-->
 # LeetCode Topics
