@@ -16,4 +16,5 @@ Here, In this repo I'll be uploading the solved problems and concepts I'll be le
 |  |
 | ------- |
 | [0007-reverse-integer](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0007-reverse-integer) |
+| [0009-palindrome-number](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0009-palindrome-number) |
 <!---LeetCode Topics End-->
