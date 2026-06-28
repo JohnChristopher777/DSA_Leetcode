@@ -10,10 +10,17 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 
 ### My LeetCode Progress 
 
-* <span style="color:#2db55d">●</span> **Easy**: 4 problems solved
-* <span style="color:#ffb700">●</span> **Medium**: 1 problems solved
-* <span style="color:#ef4743">●</span> **Hard**: 0 problems solved
-* **Total**: 5 total problems solved
+> [!tip]= Easy
+> 4 problems solved
+
+> [!warning]= Medium
+> 1 problems solved
+
+> [!danger]= Hard
+> 0 problems solved
+
+> [!note]= Total
+> 5 total problems solved
 
 ---
 
