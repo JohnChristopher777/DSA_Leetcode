@@ -6,14 +6,12 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 
 <!-- START_STATS -->
 
-### LeetCode Stats
+### LeetCode Progress
 
-| Difficulty | Solved Status |
-| :--- | :--- |
-| <span style="color:#2db55d">**Easy**</span> | **4** |
-| <span style="color:#ffb700">**Medium**</span> | **1** |
-| <span style="color:#ef4743">**Hard**</span> | **0** |
-| ? **Total** ? | **5** |
+[![Easy](https://shields.io4-2db55d?style=for-the-badge&logoWidth=0)](https://leetcode.com)
+[![Medium](https://shields.io1-ffb700?style=for-the-badge&logoWidth=0)](https://leetcode.com)
+[![Hard](https://shields.io0-ef4743?style=for-the-badge&logoWidth=0)](https://leetcode.com)
+[![Total](https://shields.io5-4a90e2?style=for-the-badge&logoWidth=0)](https://leetcode.com)
 
 <!-- END_STATS -->
 
