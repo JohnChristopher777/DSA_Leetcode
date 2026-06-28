@@ -1,10 +1,14 @@
 class Solution {
     public int fib(int n) {
         if(n<1) return n;
-        if(n==1) return 1;
-        int l=fib(n-1);
-        int sl=fib(n-2);
+        int a=0;
+        int b=1;
+        for(int i=2;i<=n;i++){
+            int sum=a+b;
+            a=b;
+            b=sum;
+        }
 
-        return l + sl;
+        return b;
     }
 }
