@@ -3,7 +3,7 @@
 In this repository, I will be uploading the LeetCode problems I solve throughout my DSA journey.
 
 <!---LeetCode Topics Start-->
-# LeetCode Topics
+# LeetCode Topics:
 ## Array
 |  |
 | ------- |
