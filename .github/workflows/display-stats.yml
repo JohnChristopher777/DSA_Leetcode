@@ -43,7 +43,7 @@ jobs:
             if json_file:
                 break
 
-        if json_file:
+               if json_file:
             try:
                 with open(json_file, 'r') as f:
                     data = json.load(f)
@@ -56,13 +56,13 @@ jobs:
                 print(f'Fallback parser triggered: {e}')
 
         # Create a modern, visually striking GitHub card using a clean table layout
-        ui_card = '\n### 🛠️ LeetCode Stats\n\n'
+        ui_card = '\n### LeetCode Stats\n\n'
         ui_card += '| Difficulty | Solved Status |\n'
         ui_card += '| :--- | :--- |\n'
-        ui_card += f'| <span style=\"color:#2db55d\">🟢 **Easy**</span> | **{easy_cnt}** solved |\n'
-        ui_card += f'| <span style=\"color:#ffb700\">🟡 **Medium**</span> | **{medium_cnt}** solved |\n'
-        ui_card += f'| <span style=\"color:#ef4743\">🔴 **Hard**</span> | **{hard_cnt}** solved |\n'
-        ui_card += f'| 🚀 **Total** | **{total_cnt}** ?? |\n\n'
+        ui_card += f'| <span style=\"color:#2db55d\">**Easy**</span> | **{easy_cnt}** |\n'
+        ui_card += f'| <span style=\"color:#ffb700\">**Medium**</span> | **{medium_cnt}** |\n'
+        ui_card += f'| <span style=\"color:#ef4743\">**Hard**</span> | **{hard_cnt}** |\n'
+        ui_card += f'| ? **Total** ? | **{total_cnt}** |\n\n'
 
         # Read README content
         with open('README.md', 'r') as f:
