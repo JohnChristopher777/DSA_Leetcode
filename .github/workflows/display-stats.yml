@@ -1,9 +1,9 @@
 name: Update README Stats
 
 on:
-  workflow_dispatch: # Allows you to manually click a button to run it instantly
+  workflow_dispatch: 
   schedule:
-    - cron: '0 * * * *' # Automatically runs every hour to sync your LeetHub updates
+    - cron: '0 * * * *' 
   push:
     branches:
       - main # Change to 'master' if your default branch is master
@@ -27,16 +27,21 @@ jobs:
         import re
         import os
 
-        # Find the JSON file dynamically (handles lowercase/uppercase names)
+        # Deep search for the JSON file anywhere in the repository
         json_file = None
-        for file in os.listdir('.'):
-            if file.lower() == 'stats.json':
-                json_file = file
+        for root, dirs, files in os.walk('.'):
+            for file in files:
+                if file.lower() == 'stats.json':
+                    json_file = os.path.join(root, file)
+                    break
+            if json_file:
                 break
 
         if not json_file:
-            print('Error: Could not find stats.json file!')
+            print('Error: Could not find stats.json anywhere in the repository!')
             exit(1)
+
+        print(f'Found stats file at: {json_file}')
 
         # Read stats
         with open(json_file, 'r') as f:
@@ -70,7 +75,7 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git config --global user.email 'github-actions[bot]@://github.com'
         git add README.md
         git diff-index --quiet HEAD || git commit -m "Update README stats [skip ci]"
         git push
