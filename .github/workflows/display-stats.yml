@@ -53,38 +53,25 @@ jobs:
             except Exception as e:
                 print('Parser fallback initialized')
 
-        # Generate native GitHub High-Contrast Callout UI Cards (No HTML / No broken Tables)
-        ui_card = '\n### My LeetCode Progress \n\n'
-        ui_card += '> [!Easy]\n'
-        ui_card += '> ' + str(easy_cnt) + ' problems solved\n\n'
-        ui_card += '> [!MEDIUM]\n'
-        ui_card += '> ' + str(medium_cnt) + ' problems solved\n\n'
-        ui_card += '> [!HARD]\n'
-        ui_card += '> **Hard Stats**: ' + str(hard_cnt) + ' problems solved\n\n'
-        ui_card += '> [!TOTAL]\n'
-        ui_card += '> ' + str(total_cnt) + ' total problems solved\n\n'
+        # Polished modern dashboard without broken text strings or platform fallbacks
+        ui_card = '\n---\n\n### My LeetCode Progress \n\n'
+        ui_card += '* <span style=\"color:#2db55d\">●</span> **Easy**: ' + str(easy_cnt) + ' problems solved\n'
+        ui_card += '* <span style=\"color:#ffb700\">●</span> **Medium**: ' + str(medium_cnt) + ' problems solved\n'
+        ui_card += '* <span style=\"color:#ef4743\">●</span> **Hard**: ' + str(hard_cnt) + ' problems solved\n'
+        ui_card += '* **Total**: ' + str(total_cnt) + ' total problems solved\n\n'
+        ui_card += '---\n\n'
 
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # Completely purge broken image strings, custom spans, and messy table elements
-        readme = re.sub(r'\{\"leetcode\".*?\}\}\n*', '', readme, flags=re.DOTALL)
-        readme = re.sub(r'### LeetCode Stats.*?(?=## LeetCode Topics|\Z)', '', readme, flags=re.DOTALL)
-        readme = re.sub(r'### LeetCode Progress.*?(?=## LeetCode Topics|\Z)', '', readme, flags=re.DOTALL)
-        readme = re.sub(r'', '', readme)
-
+        # Isolate updates exclusively to code blocks to protect tracking tables below
         pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
         if re.search(pattern, readme, re.DOTALL):
             new_readme = re.sub(pattern, r'\1\n' + ui_card + r'\3', readme, flags=re.DOTALL)
+            print('Successfully updated inside stats placeholders.')
         else:
-            target = '# LeetCode Topics'
-            if target not in readme:
-                target = '## LeetCode Topics'
-            
-            if target in readme:
-                new_readme = readme.replace(target, '<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->\n\n' + target)
-            else:
-                new_readme = readme + '\n\n<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->'
+            print('Placeholders missing! Appending to top safely to avoid erasing data.')
+            new_readme = '<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->\n\n' + readme
 
         with open('README.md', 'w') as f:
             f.write(new_readme)
