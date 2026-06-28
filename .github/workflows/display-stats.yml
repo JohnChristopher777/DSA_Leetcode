@@ -8,6 +8,10 @@ on:
     branches:
       - main # Change to 'master' if your default branch is master
 
+# Explicitly force GitHub to allow this script to write changes back to your repository files
+permissions:
+  contents: write
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -27,18 +31,18 @@ jobs:
         import re
         import os
 
-        # Deep search for the JSON file anywhere in the repository
+        # Deep search for stat.json or stats.json
         json_file = None
         for root, dirs, files in os.walk('.'):
             for file in files:
-                if file.lower() == 'stats.json':
+                if file.lower() in ['stat.json', 'stats.json']:
                     json_file = os.path.join(root, file)
                     break
             if json_file:
                 break
 
         if not json_file:
-            print('Error: Could not find stats.json anywhere in the repository!')
+            print('Error: Could not find any stat.json or stats.json file!')
             exit(1)
 
         print(f'Found stats file at: {json_file}')
@@ -47,13 +51,23 @@ jobs:
         with open(json_file, 'r') as f:
             stats = json.load(f)
 
+        # Handle both old LeetHub structures and new nested structures
+        easy_cnt = stats.get('easy', stats.get('Easy', 0))
+        medium_cnt = stats.get('medium', stats.get('Medium', 0))
+        hard_cnt = stats.get('hard', stats.get('Hard', 0))
+        
+        # If total doesn't exist, calculate it manually
+        total_cnt = stats.get('total', stats.get('Total', None))
+        if total_cnt is None:
+            total_cnt = int(easy_cnt) + int(medium_cnt) + int(hard_cnt)
+
         # Format stats into a markdown table with Colored Text
         table = '### LeetCode Progress\n\n'
         table += '| Difficulty | Solved |\n| --- | --- |\n'
-        table += f'| <span style=\"color:#2db55d\">**Easy**</span> | {stats.get(\'easy\', 0)} |\n'
-        table += f'| <span style=\"color:#ffb700\">**Medium**</span> | {stats.get(\'medium\', 0)} |\n'
-        table += f'| <span style=\"color:#ef4743\">**Hard**</span> | {stats.get(\'hard\', 0)} |\n'
-        table += f'| **Total** | **{stats.get(\'total\', 0)}** |\n\n'
+        table += f'| <span style=\"color:#2db55d\">**Easy**</span> | {easy_cnt} |\n'
+        table += f'| <span style=\"color:#ffb700\">**Medium**</span> | {medium_cnt} |\n'
+        table += f'| <span style=\"color:#ef4743\">**Hard**</span> | {hard_cnt} |\n'
+        table += f'| **Total** | **{total_cnt}** |\n\n'
 
         # Read README
         with open('README.md', 'r') as f:
@@ -75,7 +89,7 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@://github.com'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add README.md
         git diff-index --quiet HEAD || git commit -m "Update README stats [skip ci]"
         git push
