@@ -8,19 +8,15 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 
 ---
 
-### My LeetCode Progress 
+### My LeetCode Progress
 
-> [!tip]= Easy
-> 4 problems solved
+**Easy:** 4 solved &nbsp;&nbsp; <span style="background-color:#2db55d; color:white; padding:1px 12px; border-radius:4px; font-size:11px;"><b>Easy</b></span>
 
-> [!warning]= Medium
-> 1 problems solved
+**Medium:** 1 solved &nbsp;&nbsp; <span style="background-color:#ffb700; color:black; padding:1px 12px; border-radius:4px; font-size:11px;"><b>Medium</b></span>
 
-> [!danger]= Hard
-> 0 problems solved
+**Hard:** 0 solved &nbsp;&nbsp; <span style="background-color:#ef4743; color:white; padding:1px 12px; border-radius:4px; font-size:11px;"><b>Hard</b></span>
 
-> [!note]= Total
-> 5 total problems solved
+**Total:** 5 solved &nbsp;&nbsp; <span style="background-color:#007acc; color:white; padding:1px 12px; border-radius:4px; font-size:11px;"><b>Total</b></span>
 
 ---
 
