@@ -53,12 +53,12 @@ jobs:
             except Exception as e:
                 print('Parser fallback initialized')
 
-        # Clean HTML-styled rows with colored indicator pill bars at the end
+        # Clean rows with colored emojis and line separators
         ui_card = '\n---\n\n### My LeetCode Progress\n\n'
-        ui_card += '**Easy:** ' + str(easy_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#2db55d; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Easy</b></span>\n\n'
-        ui_card += '**Medium:** ' + str(medium_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#ffb700; color:black; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Medium</b></span>\n\n'
-        ui_card += '**Hard:** ' + str(hard_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#ef4743; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Hard</b></span>\n\n'
-        ui_card += '**Total:** ' + str(total_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#007acc; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Total</b></span>\n\n'
+        ui_card += '🟢 **Easy:** ' + str(easy_cnt) + ' solved\n\n'
+        ui_card += '🟡 **Medium:** ' + str(medium_cnt) + ' solved\n\n'
+        ui_card += '🔴 **Hard:** ' + str(hard_cnt) + ' solved\n\n'
+        ui_card += '🔵 **Total:** ' + str(total_cnt) + ' solved\n\n'
         ui_card += '---\n\n'
 
         with open('README.md', 'r') as f:
