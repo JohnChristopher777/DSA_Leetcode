@@ -53,20 +53,19 @@ jobs:
             except Exception as e:
                 print('Parser fallback initialized')
 
-        # Clean, modern UI table with colors and requested title layout without emojis
-        ui_card = '\n### LeetCode Stats\n\n'
-        ui_card += '| Difficulty | Solved Status |\n'
-        ui_card += '| :--- | :--- |\n'
-        ui_card += '| <span style=\"color:#2db55d\">**Easy**</span> | **' + str(easy_cnt) + '** |\n'
-        ui_card += '| <span style=\"color:#ffb700\">**Medium**</span> | **' + str(medium_cnt) + '** |\n'
-        ui_card += '| <span style=\"color:#ef4743\">**Hard**</span> | **' + str(hard_cnt) + '** |\n'
-        ui_card += '| ? **Total** ? | **' + str(total_cnt) + '** |\n\n'
+        # Modern UI Layout using Flat Vector Badges (No broken emojis or raw markdown table text)
+        ui_card = '\n### LeetCode Progress\n\n'
+        ui_card += '[![Easy](https://shields.io' + str(easy_cnt) + '-2db55d?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
+        ui_card += '[![Medium](https://shields.io' + str(medium_cnt) + '-ffb700?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
+        ui_card += '[![Hard](https://shields.io' + str(hard_cnt) + '-ef4743?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
+        ui_card += '[![Total](https://shields.io' + str(total_cnt) + '-4a90e2?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n\n'
 
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # Clean out old raw JSON or messy remnants left over from manual updates
+        # Clean out old raw JSON remnants, duplicate tables, and broken question mark symbols
         readme = re.sub(r'\{\"leetcode\".*?\}\}\n*', '', readme, flags=re.DOTALL)
+        readme = re.sub(r'', '', readme)
 
         pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
         if re.search(pattern, readme, re.DOTALL):
