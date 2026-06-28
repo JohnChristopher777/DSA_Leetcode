@@ -53,28 +53,24 @@ jobs:
             except Exception as e:
                 print('Parser fallback initialized')
 
-        # Modern Obsidian Callout blocks with custom names and line separators
-        ui_card = '\n---\n\n### My LeetCode Progress \n\n'
-        ui_card += '> [!tip]= Easy\n'
-        ui_card += '> ' + str(easy_cnt) + ' problems solved\n\n'
-        ui_card += '> [!warning]= Medium\n'
-        ui_card += '> ' + str(medium_cnt) + ' problems solved\n\n'
-        ui_card += '> [!danger]= Hard\n'
-        ui_card += '> ' + str(hard_cnt) + ' problems solved\n\n'
-        ui_card += '> [!note]= Total\n'
-        ui_card += '> ' + str(total_cnt) + ' total problems solved\n\n'
+        # Clean HTML-styled rows with colored indicator pill bars at the end
+        ui_card = '\n---\n\n### My LeetCode Progress\n\n'
+        ui_card += '**Easy:** ' + str(easy_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#2db55d; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Easy</b></span>\n\n'
+        ui_card += '**Medium:** ' + str(medium_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#ffb700; color:black; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Medium</b></span>\n\n'
+        ui_card += '**Hard:** ' + str(hard_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#ef4743; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Hard</b></span>\n\n'
+        ui_card += '**Total:** ' + str(total_cnt) + ' solved &nbsp;&nbsp; <span style=\"background-color:#007acc; color:white; padding:1px 12px; border-radius:4px; font-size:11px;\"><b>Total</b></span>\n\n'
         ui_card += '---\n\n'
 
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # SAFE REPLACEMENT: Only changes the text inside the placeholder window
+        # SAFE REPLACEMENT: Only adjusts content inside your exact tracking tags
         pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
         if re.search(pattern, readme, re.DOTALL):
             new_readme = re.sub(pattern, r'\1\n' + ui_card + r'\3', readme, flags=re.DOTALL)
-            print('Successfully updated Obsidian callouts inside placeholders.')
+            print('Successfully updated inline bars inside placeholders.')
         else:
-            print('Placeholders missing! Appending safely to prevent erasures.')
+            print('Placeholders missing! Appending safely to avoid erasing data.')
             new_readme = '<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->\n\n' + readme
 
         with open('README.md', 'w') as f:
