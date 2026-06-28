@@ -5,6 +5,16 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 <!---LeetCode Topics Start-->
 
 <!-- START_STATS -->
+
+### LeetCode Stats
+
+| Difficulty | Solved Status |
+| :--- | :--- |
+| <span style="color:#2db55d">**Easy**</span> | **4** |
+| <span style="color:#ffb700">**Medium**</span> | **1** |
+| <span style="color:#ef4743">**Hard**</span> | **0** |
+| ? **Total** ? | **5** |
+
 <!-- END_STATS -->
 
 # LeetCode Topics
