@@ -6,7 +6,7 @@ on:
     - cron: '0 * * * *' 
   push:
     branches:
-      - main # Synchronized with your repository branch configuration
+      - main
 
 permissions:
   contents: write
@@ -30,10 +30,10 @@ jobs:
         import re
         import os
 
-        # Hardcoded parse safety defaults derived from your true file trace
+        # Hardcoded fallback values from your actual repository data string
         easy_cnt, medium_cnt, hard_cnt, total_cnt = 4, 1, 0, 5
 
-        # Check for any dynamic file updates in system tree
+        # Check for dynamic updates inside stats.json
         json_file = None
         for root, dirs, files in os.walk('.'):
             for file in files:
@@ -53,43 +53,37 @@ jobs:
                 hard_cnt = stats.get('hard', stats.get('Hard', hard_cnt))
                 total_cnt = stats.get('solved', stats.get('total', int(easy_cnt)+int(medium_cnt)+int(hard_cnt)))
             except Exception as e:
-                print(f'Using standard parser framework fallback: {e}')
+                print(f'Fallback parser triggered: {e}')
 
-        # Read actual document contents
+        # Create a modern, visually striking GitHub card using a clean table layout
+        ui_card = '\n### 🛠️ LeetCode Stats\n\n'
+        ui_card += '| Difficulty | Solved Status |\n'
+        ui_card += '| :--- | :--- |\n'
+        ui_card += f'| <span style=\"color:#2db55d\">🟢 **Easy**</span> | **{easy_cnt}** solved |\n'
+        ui_card += f'| <span style=\"color:#ffb700\">🟡 **Medium**</span> | **{medium_cnt}** solved |\n'
+        ui_card += f'| <span style=\"color:#ef4743\">🔴 **Hard**</span> | **{hard_cnt}** solved |\n'
+        ui_card += f'| 🚀 **Total** | **{total_cnt}** ?? |\n\n'
+
+        # Read README content
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # Scrub messy strings, old table frameworks, and string JSON trails completely
-        readme = re.sub(r'### LeetCode Progress.*?(?=(?:\{|\Z))', '', readme, flags=re.DOTALL)
-        readme = re.sub(r'\{\"leetcode\".*?\}\}\n*', '', readme, flags=re.DOTALL)
-        readme = re.sub(r'<!-- START_STATS -->.*?<!-- END_STATS -->\n*', '', readme, flags=re.DOTALL)
-
-        # Generate a sleek, high-fidelity developer terminal layout block
-        ui_box = '```text\n'
-        ui_box += '┌──────────────────────────────────┐\n'
-        ui_box += '│        LeetCode Progress         │\n'
-        ui_box += '├──────────────────────────────────┤\n'
-        ui_box += f'│  🟢 Easy    : {str(easy_cnt).ljust(17)} │\n'
-        ui_box += f'│  🟡 Medium  : {str(medium_cnt).ljust(17)} │\n'
-        ui_box += f'│  🔴 Hard    : {str(hard_cnt).ljust(17)} │\n'
-        ui_box += '├──────────────────────────────────┤\n'
-        ui_box += f'│  🔥 Total   : {str(total_cnt).ljust(14)} ?? │\n'
-        ui_box += '└──────────────────────────────────┘\n'
-        ui_box += '```\n'
-
-        # Pin block alignment securely directly above the target string header
-        target_header = '# LeetCode Topics'
-        if target_header not in readme:
-            target_header = '## LeetCode Topics'
-
-        if target_header in readme:
-            replacement_block = f'<!-- START_STATS -->\n{ui_box}<!-- END_STATS -->\n\n{target_header}'
-            new_readme = readme.replace(target_header, replacement_block)
+        # Safely substitute data right inside your exact tags, regardless of where they are positioned
+        pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
+        if re.search(pattern, readme, re.DOTALL):
+            new_readme = re.sub(pattern, f'\\1\n{ui_card}\\3', readme, flags=re.DOTALL)
+            print('Successfully updated the stats block layout.')
         else:
-            new_readme = readme.strip() + '\n\n<!-- START_STATS -->\n' + ui_box + '<!-- END_STATS -->\n'
-
-        # Remove arbitrary whitespace line clusters
-        new_readme = re.sub(r'\n{3,}', '\n\n', new_readme)
+            # If tags are completely missing, auto-append above the Topics Header cleanly
+            print('Tags missing, finding structural headers.')
+            target = '# LeetCode Topics'
+            if target not in readme:
+                target = '## LeetCode Topics'
+            
+            if target in readme:
+                new_readme = readme.replace(target, f'<!-- START_STATS -->\n{ui_card}<!-- END_STATS -->\n\n{target}')
+            else:
+                new_readme = readme + f'\n\n<!-- START_STATS -->\n{ui_card}<!-- END_STATS -->'
 
         with open('README.md', 'w') as f:
             f.write(new_readme)
