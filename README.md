@@ -6,22 +6,15 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 
 <!-- START_STATS -->
 
-
-
-<!-- START_STATS -->
+---
 
 ### My LeetCode Progress 
 
-> [!Easy]
-> 4 problems solved
+* <span style="color:#2db55d">●</span> **Easy**: 4 problems solved
+* <span style="color:#ffb700">●</span> **Medium**: 1 problems solved
+* <span style="color:#ef4743">●</span> **Hard**: 0 problems solved
+* **Total**: 5 total problems solved
 
-> [!MEDIUM]
-> 1 problems solved
-
-> [!HARD]
-> **Hard Stats**: 0 problems solved
-
-> [!TOTAL]
-> 5 total problems solved
+---
 
 <!-- END_STATS -->
