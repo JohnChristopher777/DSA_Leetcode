@@ -30,10 +30,8 @@ jobs:
         import re
         import os
 
-        # Hardcoded fallback values from your actual repository data string
         easy_cnt, medium_cnt, hard_cnt, total_cnt = 4, 1, 0, 5
 
-        # Check for dynamic updates inside stats.json
         json_file = None
         for root, dirs, files in os.walk('.'):
             for file in files:
@@ -43,7 +41,7 @@ jobs:
             if json_file:
                 break
 
-               if json_file:
+        if json_file:
             try:
                 with open(json_file, 'r') as f:
                     data = json.load(f)
@@ -53,37 +51,35 @@ jobs:
                 hard_cnt = stats.get('hard', stats.get('Hard', hard_cnt))
                 total_cnt = stats.get('solved', stats.get('total', int(easy_cnt)+int(medium_cnt)+int(hard_cnt)))
             except Exception as e:
-                print(f'Fallback parser triggered: {e}')
+                print('Parser fallback initialized')
 
-        # Create a modern, visually striking GitHub card using a clean table layout
+        # Clean, modern UI table with colors and requested title layout without emojis
         ui_card = '\n### LeetCode Stats\n\n'
         ui_card += '| Difficulty | Solved Status |\n'
         ui_card += '| :--- | :--- |\n'
-        ui_card += f'| <span style=\"color:#2db55d\">**Easy**</span> | **{easy_cnt}** |\n'
-        ui_card += f'| <span style=\"color:#ffb700\">**Medium**</span> | **{medium_cnt}** |\n'
-        ui_card += f'| <span style=\"color:#ef4743\">**Hard**</span> | **{hard_cnt}** |\n'
-        ui_card += f'| ? **Total** ? | **{total_cnt}** |\n\n'
+        ui_card += '| <span style=\"color:#2db55d\">**Easy**</span> | **' + str(easy_cnt) + '** |\n'
+        ui_card += '| <span style=\"color:#ffb700\">**Medium**</span> | **' + str(medium_cnt) + '** |\n'
+        ui_card += '| <span style=\"color:#ef4743\">**Hard**</span> | **' + str(hard_cnt) + '** |\n'
+        ui_card += '| ? **Total** ? | **' + str(total_cnt) + '** |\n\n'
 
-        # Read README content
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # Safely substitute data right inside your exact tags, regardless of where they are positioned
+        # Clean out old raw JSON or messy remnants left over from manual updates
+        readme = re.sub(r'\{\"leetcode\".*?\}\}\n*', '', readme, flags=re.DOTALL)
+
         pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
         if re.search(pattern, readme, re.DOTALL):
-            new_readme = re.sub(pattern, f'\\1\n{ui_card}\\3', readme, flags=re.DOTALL)
-            print('Successfully updated the stats block layout.')
+            new_readme = re.sub(pattern, r'\1\n' + ui_card + r'\3', readme, flags=re.DOTALL)
         else:
-            # If tags are completely missing, auto-append above the Topics Header cleanly
-            print('Tags missing, finding structural headers.')
             target = '# LeetCode Topics'
             if target not in readme:
                 target = '## LeetCode Topics'
             
             if target in readme:
-                new_readme = readme.replace(target, f'<!-- START_STATS -->\n{ui_card}<!-- END_STATS -->\n\n{target}')
+                new_readme = readme.replace(target, '<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->\n\n' + target)
             else:
-                new_readme = readme + f'\n\n<!-- START_STATS -->\n{ui_card}<!-- END_STATS -->'
+                new_readme = readme + '\n\n<!-- START_STATS -->\n' + ui_card + '<!-- END_STATS -->'
 
         with open('README.md', 'w') as f:
             f.write(new_readme)
@@ -92,7 +88,7 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git config --global user.email 'github-actions[bot]@://github.com'
         git add README.md
         git diff-index --quiet HEAD || git commit -m "Update README stats [skip ci]"
         git push
