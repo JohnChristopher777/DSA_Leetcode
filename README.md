@@ -17,4 +17,12 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 | ------- |
 | [0007-reverse-integer](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0007-reverse-integer) |
 | [0009-palindrome-number](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0009-palindrome-number) |
+## Two Pointers
+|  |
+| ------- |
+| [0125-valid-palindrome](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0125-valid-palindrome) |
+## String
+|  |
+| ------- |
+| [0125-valid-palindrome](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0125-valid-palindrome) |
 <!---LeetCode Topics End-->
