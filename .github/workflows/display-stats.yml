@@ -46,25 +46,31 @@ jobs:
                 with open(json_file, 'r') as f:
                     data = json.load(f)
                 stats = data.get('leetcode', data)
-                easy_cnt = stats.get('easy', stats.get('Easy', easy_cnt))
-                medium_cnt = stats.get('medium', stats.get('Medium', medium_cnt))
-                hard_cnt = stats.get('hard', stats.get('Hard', hard_cnt))
-                total_cnt = stats.get('solved', stats.get('total', int(easy_cnt)+int(medium_cnt)+int(hard_cnt)))
+                easy_cnt = int(stats.get('easy', stats.get('Easy', easy_cnt)))
+                medium_cnt = int(stats.get('medium', stats.get('Medium', medium_cnt)))
+                hard_cnt = int(stats.get('hard', stats.get('Hard', hard_cnt)))
+                total_cnt = int(stats.get('solved', stats.get('total', easy_cnt + medium_cnt + hard_cnt)))
             except Exception as e:
                 print('Parser fallback initialized')
 
-        # Modern UI Layout using Flat Vector Badges (No broken emojis or raw markdown table text)
-        ui_card = '\n### LeetCode Progress\n\n'
-        ui_card += '[![Easy](https://shields.io' + str(easy_cnt) + '-2db55d?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
-        ui_card += '[![Medium](https://shields.io' + str(medium_cnt) + '-ffb700?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
-        ui_card += '[![Hard](https://shields.io' + str(hard_cnt) + '-ef4743?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n'
-        ui_card += '[![Total](https://shields.io' + str(total_cnt) + '-4a90e2?style=for-the-badge&logoWidth=0)](https://leetcode.com)\n\n'
+        # Generate native GitHub High-Contrast Callout UI Cards (No HTML / No broken Tables)
+        ui_card = '\n### LeetCode Progress Dashboard\n\n'
+        ui_card += '> [!TIP]\n'
+        ui_card += '> **Easy Stats**: ' + str(easy_cnt) + ' problems solved\n\n'
+        ui_card += '> [!WARNING]\n'
+        ui_card += '> **Medium Stats**: ' + str(medium_cnt) + ' problems solved\n\n'
+        ui_card += '> [!CAUTION]\n'
+        ui_card += '> **Hard Stats**: ' + str(hard_cnt) + ' problems solved\n\n'
+        ui_card += '> [!NOTE]\n'
+        ui_card += '> **Total Progress**: ' + str(total_cnt) + ' / 500 targeted metrics\n\n'
 
         with open('README.md', 'r') as f:
             readme = f.read()
 
-        # Clean out old raw JSON remnants, duplicate tables, and broken question mark symbols
+        # Completely purge broken image strings, custom spans, and messy table elements
         readme = re.sub(r'\{\"leetcode\".*?\}\}\n*', '', readme, flags=re.DOTALL)
+        readme = re.sub(r'### LeetCode Stats.*?(?=## LeetCode Topics|\Z)', '', readme, flags=re.DOTALL)
+        readme = re.sub(r'### LeetCode Progress.*?(?=## LeetCode Topics|\Z)', '', readme, flags=re.DOTALL)
         readme = re.sub(r'', '', readme)
 
         pattern = r'(<!-- START_STATS -->)(.*?)(<!-- END_STATS -->)'
@@ -87,7 +93,7 @@ jobs:
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@://github.com'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add README.md
         git diff-index --quiet HEAD || git commit -m "Update README stats [skip ci]"
         git push
