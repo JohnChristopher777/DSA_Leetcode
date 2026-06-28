@@ -39,3 +39,15 @@ In this repository, I will be uploading the LeetCode problems I solve throughout
 | ------- |
 | [0509-fibonacci-number](https://github.com/JohnChristopher777/DSA_Leetcode/tree/master/0509-fibonacci-number) |
 <!---LeetCode Topics End-->
+
+
+### LeetCode Progress
+
+| Difficulty | Solved |
+| --- | --- |
+| <span style="color:#2db55d">**Easy**</span> | 0 |
+| <span style="color:#ffb700">**Medium**</span> | 0 |
+| <span style="color:#ef4743">**Hard**</span> | 0 |
+| **Total** | **0** |
+
+
