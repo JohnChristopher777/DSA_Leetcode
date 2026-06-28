@@ -3,6 +3,10 @@
 In this repository, I will be uploading the LeetCode problems I solve throughout my DSA journey.
 
 <!---LeetCode Topics Start-->
+<!-- START_STATS -->
+
+<!-- END_STATS -->
+
 # LeetCode Topics
 ## Array
 |  |
