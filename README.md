@@ -3,9 +3,18 @@
 In this repository, I will be uploading the LeetCode problems I solve throughout my DSA journey.
 
 <!---LeetCode Topics Start-->
-<!-- START_STATS -->
+
 
-<!-- END_STATS -->
+### 🛠️ LeetCode Stats
+
+| Difficulty | Solved Status |
+| :--- | :--- |
+| <span style="color:#2db55d">🟢 **Easy**</span> | **4** solved |
+| <span style="color:#ffb700">🟡 **Medium**</span> | **1** solved |
+| <span style="color:#ef4743">🔴 **Hard**</span> | **0** solved |
+| 🚀 **Total** | **5** ?? |
+
+
 
 # LeetCode Topics
 ## Array
