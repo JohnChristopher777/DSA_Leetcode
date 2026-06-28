@@ -30,12 +30,12 @@ jobs:
         # Find the JSON file dynamically (handles lowercase/uppercase names)
         json_file = None
         for file in os.listdir('.'):
-            if file.lower() == 'stat.json':
+            if file.lower() == 'stats.json':
                 json_file = file
                 break
 
         if not json_file:
-            print('Error: Could not find stat.json file!')
+            print('Error: Could not find stats.json file!')
             exit(1)
 
         # Read stats
